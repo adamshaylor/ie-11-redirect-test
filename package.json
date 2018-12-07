@@ -1,0 +1,17 @@
+{
+  "name": "ie-11-redirect-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Adam Shaylor <adam.shaylor@pollinate.com>",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "koa": "^2.6.2",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0"
+  }
+}
