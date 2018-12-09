@@ -11,9 +11,37 @@ const requestCases = [
     name: 'Faux API',
     test: request => /api\//.test(request.url),
     callback: (request, response) => {
+      /**
+       * A stock redirect that IE 11 chokes on
+       */
+
       response.writeHead(301, {
         'Location': redirectUrl
       });
+
+      /**
+       * Some other responses that also don't work in IE 11
+       */
+
+      // https://stackoverflow.com/a/25313928
+      // response.writeHead(301, {
+      //   'Location': redirectUrl,
+      //   'Connection': 'close'
+      // });
+
+      // response.writeHead(301, {
+      //   'Location': redirectUrl,
+      //   'Content-Type': 'image/png'
+      // });
+
+      // response.writeHead(303, {
+      //   'Location': redirectUrl
+      // });
+
+      // response.writeHead(307, {
+      //   'Location': redirectUrl
+      // });
+
       response.end();
     }
   },
@@ -64,38 +92,3 @@ const server = http.createServer((request, response) => {
 });
 
 server.listen(port, () => console.log(`Open http://localhost:${ port } in IE 11`));
-
-/**
- * START SHIT
- *
- * As it turns out, Koa is shit at overriding default headers. It's all syntactic
- * sugar and no separation of concerns.
- *
- * https://github.com/koajs/koa/issues/1120
- */
-
-// const Koa = require('koa');
-// const serve = require('koa-static');
-// const router = require('koa-router')();
-//
-// const app = new Koa();
-//
-// app.use(serve('views/home'));
-//
-// router.get('/faux-api/assets/transform/asset/:id', ctx => {
-//   ctx.status = 301;
-//   ctx.set('Location', redirectUrl);
-//
-//   // Random stabs in the dark
-//   // ctx.set('Access-Control-Allow-Origin', '*');
-//   // ctx.set('Access-Control-Allow-Headers', '*');
-//   ctx.set('Content-Type', null);
-// });
-//
-// app.use(router.routes());
-// app.listen(port);
-// console.log(`Open http://localhost:${ port }/ in IE 11`);
-
-/**
- * END SHIT
- */

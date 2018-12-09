@@ -1,7 +1,7 @@
 const image = new Image();
 
 // https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image
-image.crossOrigin = 'Anonymous';
+image.crossOrigin = 'use-credentials';
 
 image.onload = function() {
   console.log('Phase 1: PASS. The server returned a redirect and the browser loaded the image from the Location response header.');
